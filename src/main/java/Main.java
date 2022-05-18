@@ -6,22 +6,24 @@ public class Main {
 
     public static void main(String[] args) {
         int start = 0;
-        int end = 6998;
+        int end = 500_000_000;
         int[] array = new int[end];
         generatingIntegerArray(array);
 
         //однопоточный подсчет
         long startTimeForOne = System.currentTimeMillis();
-        System.out.println("Сумма элементов массива: " + sumArraysElements(array));
+        int resultSingleThread = sumArraysElements(array);
         long endTimeForOne = System.currentTimeMillis();
+        System.out.println("Сумма элементов массива: " + resultSingleThread);
         System.out.println("Затраченное время (однопоточно):" + (endTimeForOne - startTimeForOne));
 
         //многопоточный подсчет
-        long startTimeForMulti = System.currentTimeMillis();
         ForkJoinPool pool = new ForkJoinPool();
         ArraySumTask task = new ArraySumTask(array, start, end);
-        System.out.println("Сумма элементов массива: " + pool.invoke(task));
+        long startTimeForMulti = System.currentTimeMillis();
+        int resultMultiThreads = pool.invoke(task);
         long endTimeForMulti = System.currentTimeMillis();
+        System.out.println("Сумма элементов массива: " + resultMultiThreads);
         System.out.println("Затраченное время (многопоточно):" + (endTimeForMulti - startTimeForMulti));
     }
 

@@ -5,6 +5,7 @@ public class ArraySumTask extends RecursiveTask<Integer> {
     private final int[] array;
     private final int start;
     private final int end;
+    private static final int THRESHOLD = 1000;
 
     public ArraySumTask(int[] array, int start, int end) {
         this.array = array;
@@ -15,12 +16,15 @@ public class ArraySumTask extends RecursiveTask<Integer> {
     @Override
     protected Integer compute() {
         final int diff = end - start;
-        return switch (diff) {
-            case 0 -> 0;
-            case 1 -> array[start];
-            case 2 -> array[start] + array[start + 1];
-            default -> forkTasksAndGetResult();
-        };
+        int result = 0;
+        if (diff <= THRESHOLD) {
+            for (int i = start; i<end; i++) {
+                result += array[i];
+            }
+            return result;
+        }
+        return forkTasksAndGetResult();
+
     }
 
     public int forkTasksAndGetResult() {
