@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         int start = 0;
-        int end = 500_000_000;
+        int end = 200_000_000;
         int[] array = new int[end];
         generatingIntegerArray(array);
 

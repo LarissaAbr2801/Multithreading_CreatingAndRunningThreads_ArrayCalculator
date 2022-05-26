@@ -5,7 +5,7 @@ public class ArraySumTask extends RecursiveTask<Integer> {
     private final int[] array;
     private final int start;
     private final int end;
-    private static final int THRESHOLD = 1000;
+    private static final int THRESHOLD = 1_000_000;
 
     public ArraySumTask(int[] array, int start, int end) {
         this.array = array;
